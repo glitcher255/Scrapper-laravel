@@ -46,12 +46,11 @@ for ($x = 1; $x <= $pages_to_scrap; $x++) {
 $response = $httpClient->request('GET', 'https://www.kotobati.com/section/%D8%B1%D9%88%D8%A7%D9%8A%D8%A7%D8%AA?page=' . $page_number);
 $response->filter('.info div div div h3 a')->each(function ($node) use ($httpClient){
     dump($node->text());
-   // DB::insert('insert into users (id, name) values (?, ?)', [1, 'Marc']);
 
-    try {
+    try {                                 //catch errors such as end of data
     $all = $httpClient->click($node->link())->filter('');
-    $book_count = $all->filter('.info div .media-body ul li p')->eq(1)->text();
-    dump($book_count);
+    $page_count = $all->filter('.info div .media-body ul li p')->eq(1)->text();
+    dump($page_count);
     $book_lang = $all->filter('.info div .media-body ul li')->eq(1)->filter('p')->eq(1)->text();
     dump($book_lang);
     $book_size = $all->filter('.info div .media-body ul li')->eq(2)->filter('p')->eq(1)->text();
@@ -60,6 +59,16 @@ $response->filter('.info div div div h3 a')->each(function ($node) use ($httpCli
     dump($file_type);
     $book_download = $all->filter('.info .detail-box div .box-btn a')->eq(0)->attr('href');
     dump('https://www.kotobati.com' . $book_download);
+
+    DB::table('scrap')->insert([
+        'book' => $node->text(),
+        'page_count' => $page_count,
+        'book_lang' => $book_lang,
+        'book_size' => $book_size,
+        'file_type' => $file_type,
+        'download' => 'https://www.kotobati.com' . $book_download,
+      ]);
+
     } catch(Exception $e) {
     };
      });

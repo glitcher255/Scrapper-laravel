@@ -10,9 +10,6 @@
 # 📗 Table of Contents
 
 - [💻 Getting Started](#getting-started)
-  - [Setup](#setup)
-  - [Prerequisites](#prerequisites)
-  - [Install](#install)
   - [Usage](#usage)
 
 <details>

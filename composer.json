@@ -1,0 +1,11 @@
+{
+    "require": {
+        "weidner/goutte": "^2.3",
+        "guzzlehttp/guzzle": "^7.7",
+        "fabpot/goutte": "^4.0",
+        "masterminds/html5": "^2.8",
+        "simplehtmldom/simplehtmldom": "^2.0@RC"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
